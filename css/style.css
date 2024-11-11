@@ -1,8 +1,45 @@
-*,*::before,*::after{
+*,*:before,*:after{
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
+
 body {
-    background-color: #dbc6ab;
+    margin: 10px;
+}
+#calculator {
+    background-color: #000;
+    padding: 20px;
+    width: 250px;
+    margin: 0;
+}
+.display-container {
+    height: 70px;
+    width: 230px;
+}
+#display {
+    background-color: #ded2d2;
+}
+.buttons {
+    width: 230px
+}
+button {
+    width: 50px;
+    height: 30px;
+    align-items: center;
+}
+button:hover{
+    background-color: #a22e2e;
+    color: #ffffff;
+}
+#equals{
+    width: 104px;
+    background-color: aqua;
+}
+#clear{
+    width: 104px;
+    background-color: aqua;
+}
+#decimal {
+    width: 104px;
+    background-color: aqua;
 }
