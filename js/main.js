@@ -50,7 +50,10 @@ function operate() {
 }
 
 function updateDisplay() {
-  display.textContent = displayValue;
+  display.textContent =
+    displayValue.length > 20
+      ? parseFloat(displayValue).toExponential(5)
+      : displayValue;
 }
 
 function clearCalculator() {
