@@ -76,7 +76,7 @@ function handleNumber(number) {
 }
 function handleDecimal() {
   if (displayValue === 'error') {
-    displayValue = '0.';
+    displayValue = '0';
   } else if (!displayValue.includes('.')) {
     displayValue += '.';
   }
