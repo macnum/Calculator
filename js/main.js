@@ -23,6 +23,7 @@ function pow(a, b) {
 }
 
 function operate() {
+  if (firstOperand === null || currentOperator === null) return;
   let result;
   secondOperand = parseFloat(displayValue);
   switch (currentOperator) {
@@ -42,16 +43,17 @@ function operate() {
       result = pow(firstOperand, secondOperand);
       break;
   }
-
-  displayValue = result.toString();
-  firstOperand = result;
+  displayValue = result === 'error' ? 'error' : result.toString();
+  firstOperand = result === 'error' ? null : result;
   currentOperator = null;
   updateDisplay();
 }
 
 function updateDisplay() {
   display.textContent =
-    displayValue.length > 20
+    displayValue === 'error'
+      ? 'Error'
+      : displayValue.length > 20
       ? parseFloat(displayValue).toExponential(5)
       : displayValue;
 }
@@ -65,7 +67,7 @@ function clearCalculator() {
 }
 
 function handleNumber(number) {
-  if (displayValue === '0') {
+  if (displayValue === '0' || displayValue === 'error') {
     displayValue = number;
   } else {
     displayValue += number;
@@ -73,7 +75,9 @@ function handleNumber(number) {
   updateDisplay();
 }
 function handleDecimal() {
-  if (!displayValue.includes('.')) {
+  if (displayValue === 'error') {
+    displayValue = '0.';
+  } else if (!displayValue.includes('.')) {
     displayValue += '.';
   }
   updateDisplay();
@@ -88,8 +92,6 @@ function handleOperator(operator) {
 }
 function handleBackSpace() {
   displayValue = displayValue.length > 1 ? displayValue.slice(0, -1) : '0';
-  updateDisplay();
-
   updateDisplay();
 }
 
