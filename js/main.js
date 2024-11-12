@@ -1,4 +1,4 @@
-const display = document.querySelector('#display');
+const display = document.getElementById('display');
 const buttons = document.querySelectorAll('.btn');
 
 let displayValue = '0';
@@ -6,18 +6,20 @@ let firstOperand = null;
 let secondOperand = null;
 let currentOperator = null;
 
-function add(first, second) {
-  return first + second;
+function add(a, b) {
+  return a + b;
 }
-
-function subtract(first, second) {
-  return first - second;
+function subtract(a, b) {
+  return a - b;
 }
-function multiply(first, second) {
-  return first * second;
+function multiply(a, b) {
+  return a * b;
 }
-function divide(first, second) {
-  return second === 0 ? 'error' : first / second;
+function divide(a, b) {
+  return b === 0 ? 'error' : a / b;
+}
+function pow(a, b) {
+  return a ** b;
 }
 
 function operate() {
@@ -36,28 +38,24 @@ function operate() {
     case '/':
       result = divide(firstOperand, secondOperand);
       break;
+    case '**':
+      result = pow(firstOperand, secondOperand);
+      break;
   }
+
   displayValue = result.toString();
-  firstOperand = displayValue;
+  firstOperand = result;
   currentOperator = null;
   updateDisplay();
 }
-
 function updateDisplay() {
   display.textContent = displayValue;
 }
-
 function clearCalculator() {
   displayValue = '0';
   firstOperand = null;
+  secondOperand = null;
   currentOperator = null;
-  updateDisplay();
-}
-
-function handleDecimal() {
-  if (!displayValue.includes('.')) {
-    displayValue += '.';
-  }
   updateDisplay();
 }
 
@@ -66,6 +64,12 @@ function handleNumber(number) {
     displayValue = number;
   } else {
     displayValue += number;
+  }
+  updateDisplay();
+}
+function handleDecimal() {
+  if (!displayValue.includes('.')) {
+    displayValue += '.';
   }
   updateDisplay();
 }
@@ -78,20 +82,20 @@ function handleOperator(operator) {
   displayValue = '0';
 }
 
-buttons.forEach((button) => {
-  button.addEventListener('click', () => {
-    if (button.classList.contains('number')) {
-      handleNumber(button.textContent);
-    } else if (button.id === 'clear') {
+buttons.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    if (btn.classList.contains('number')) {
+      handleNumber(btn.textContent);
+    } else if (btn.id === 'clear') {
       clearCalculator();
-    } else if (button.id === 'decimal') {
+    } else if (btn.id === 'decimal') {
       handleDecimal();
-    } else if (button.id === 'equals') {
+    } else if (btn.id === 'equals') {
       if (firstOperand !== null && currentOperator !== null) {
         operate();
       }
     } else {
-      handleOperator(button.textContent);
+      handleOperator(btn.textContent);
     }
   });
 });
