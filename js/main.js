@@ -48,9 +48,11 @@ function operate() {
   currentOperator = null;
   updateDisplay();
 }
+
 function updateDisplay() {
   display.textContent = displayValue;
 }
+
 function clearCalculator() {
   displayValue = '0';
   firstOperand = null;
@@ -81,6 +83,12 @@ function handleOperator(operator) {
   currentOperator = operator;
   displayValue = '0';
 }
+function handleBackSpace() {
+  displayValue = displayValue.length > 1 ? displayValue.slice(0, -1) : '0';
+  updateDisplay();
+
+  updateDisplay();
+}
 
 buttons.forEach((btn) => {
   btn.addEventListener('click', () => {
@@ -90,6 +98,8 @@ buttons.forEach((btn) => {
       clearCalculator();
     } else if (btn.id === 'decimal') {
       handleDecimal();
+    } else if (btn.id === 'backspace') {
+      handleBackSpace();
     } else if (btn.id === 'equals') {
       if (firstOperand !== null && currentOperator !== null) {
         operate();
